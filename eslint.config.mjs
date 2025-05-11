@@ -17,8 +17,5 @@ export default defineConfig([
   { files: ["**/*.json5"], plugins: { json }, language: "json/json5", extends: ["json/recommended"] },
   { files: ["**/*.md"], plugins: { markdown }, language: "markdown/gfm", extends: ["markdown/recommended"] },
   { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
-  { files: ["**/*.test.js"], plugins: { jest: jestPlugin }, languageOptions: { globals: {
-    ...eslint.configs.recommended.languageOptions.globals, // Inherit existing globals
-    ...jestPlugin.configs.recommended.env, // Add Jest globals
-    },}}
+  { files: ["**/*.test.js"], plugins: { jest: jestPlugin }}
 ]);
