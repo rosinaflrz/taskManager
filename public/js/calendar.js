@@ -257,3 +257,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+module.exports = {getUserTasks, getStatusColor, getPriorityIcon, tasksToEvents, updateTaskDate}

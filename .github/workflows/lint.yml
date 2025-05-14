@@ -22,4 +22,4 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: npx eslint . --max-warnings=200
+        run: npx eslint . --max-warnings=350

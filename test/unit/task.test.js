@@ -1,10 +1,10 @@
 jest.mock('bcrypt', () => require('bcryptjs')); // reemplazo para evitar errores nativos
 
-const { registerUser, logoutUser, getUserProfile, verifyToken } = require('../config/checkAuth');
-const User = require('../models/user');
+const { registerUser, logoutUser, getUserProfile, verifyToken } = require('../../config/checkAuth');
+const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
-jest.mock('../models/user');
+jest.mock('../../models/user');
 jest.mock('jsonwebtoken');
 
 const req = { body: {}, user: {}, cookies: {}, headers: {} };
