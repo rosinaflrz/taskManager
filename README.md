@@ -28,6 +28,7 @@ Based on the `package.json` file, the project utilizes the following key tools a
     * @shelf/jest-mongodb: Jest preset for MongoDB testing.
     * ESLint: Pluggable JavaScript linter.
     * Babel: JavaScript compiler (used via @babel/preset-env and babel-jest).
+    * Selenium and Cucumber
 
 **Requirements:**
 
@@ -35,6 +36,7 @@ Based on the `package.json` file, the project utilizes the following key tools a
 * npm (Node package manager, comes with Node.js).
 * MongoDB instance (local or cloud-hosted).
 * Stripe account (for payment processing features).
+
 
 **How to Run/Start the App:**
 
