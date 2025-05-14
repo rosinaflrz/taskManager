@@ -1,4 +1,4 @@
-import { loginUser } from "../config/checkAuth";
+import { loginUser, authenticateToken } from "../config/checkAuth";
 import connectDB from "../config/database";
 import mongoose from "mongoose";
 const User = require("../models/user");
@@ -87,4 +87,54 @@ describe("Login User tests", () => {
     });
 
     
+});
+
+describe("authenticateToken middleware", () => {
+    let req, res, next;
+
+    beforeEach(() => {
+        req = {
+            cookies: {},
+            headers: {},
+        };
+        res = {
+            redirect: jest.fn(),
+        };
+        next = jest.fn();
+    });
+
+    test("redirects if no token is provided", () => {
+        authenticateToken(req, res, next);
+        expect(res.redirect).toHaveBeenCalledWith('/?error=auth_required');
+    });
+
+    test("redirects if JWT is invalid", () => {
+        req.cookies.token = "invalidtoken";
+        jwt.verify.mockImplementation(() => {
+            throw new Error("Invalid token");
+        });
+
+        authenticateToken(req, res, next);
+        expect(res.redirect).toHaveBeenCalledWith('/?error=invalid_session');
+    });
+
+    test("calls next and sets req.user if JWT is valid", () => {
+        const decodedUser = { id: "123", name: "John" };
+        req.cookies.token = "validtoken";
+        jwt.verify.mockReturnValue(decodedUser);
+
+        authenticateToken(req, res, next);
+        expect(req.user).toEqual(decodedUser);
+        expect(next).toHaveBeenCalled();
+    });
+
+    test("extracts token from Authorization header if not in cookies", () => {
+        const decodedUser = { id: "456", name: "Jane" };
+        req.headers.authorization = "Bearer validtoken";
+        jwt.verify.mockReturnValue(decodedUser);
+
+        authenticateToken(req, res, next);
+        expect(req.user).toEqual(decodedUser);
+        expect(next).toHaveBeenCalled();
+    });
 });

@@ -1,15 +1,17 @@
-import {
+/** @jest-environment jsdom */
+global.API_URL = '/api';
+const {
   getUserTasks,
   getStatusColor,
   getPriorityIcon,
   tasksToEvents,
   updateTaskDate
-} from '../../public/js/calendar.js';
+} = require('../../public/js/calendar.js');
 
 global.fetch = jest.fn();
-global.localStorage = {
-  getItem: jest.fn(() => 'test-token')
-};
+beforeAll(() => {
+  jest.spyOn(window.localStorage.__proto__, 'getItem').mockImplementation(() => 'test-token');
+});
 
 describe('calendar', () => {
   beforeEach(() => {
